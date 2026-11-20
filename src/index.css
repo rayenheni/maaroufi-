@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette lifted from the reference theme tokens */
+  --color-primary: #2f3f8f;
+  --color-primary-700: #263478;
+  --color-primary-50: #eff1f9;
+  --color-primary-100: #e1eaf8;
+  --color-dark: #0f2144;
+  --color-dark-900: #0a1733;
+  --color-text-dark: #1e3057;
+  --color-sand: #f8f5f0;
+  --color-sand-200: #efe9df;
+  --color-muted: #5b6886;
+  --color-line: #e3e6ef;
+
+  --font-sans: "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Amiri", "Playfair Display", serif;
+  --font-latin: "Playfair Display", Georgia, serif;
+
+  --radius-4xl: 2rem;
+}
+
+html[dir="ltr"] {
+  --font-heading: "Playfair Display", "Amiri", serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    font-family: var(--font-sans);
+    background-color: #ffffff;
+    color: #1e3057;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: #2f3f8f;
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid #2f3f8f;
+    outline-offset: 3px;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #eff1f9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2f3f8f;
+    border-radius: 4px;
+  }
+}
+
+/* Headings */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-up {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Fine dotted grid used behind the hero */
+.dot-grid {
+  background-image: radial-gradient(
+    rgba(47, 63, 143, 0.14) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .fade-up,
+  .marquee-track {
+    animation: none !important;
+  }
+}
